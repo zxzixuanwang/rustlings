@@ -38,7 +38,13 @@ fn fruit_basket(basket: &mut HashMap<Fruit, u32>) {
         // TODO: Put new fruits if not already present. Note that you
         // are not allowed to put any type of fruit that's already
         // present!
-    }
+        match fruit {
+            Fruit::Apple => basket.insert(fruit, 3 as u32),
+            Fruit::Mango => basket.insert(fruit, 2 as u32),
+            Fruit::Lychee => basket.insert(fruit, 5 as u32),
+            _ => basket.insert(fruit, 11 as u32),
+        };
+    }   
 }
 
 #[cfg(test)]
@@ -46,6 +52,7 @@ mod tests {
     use super::*;
 
     fn get_fruit_basket() -> HashMap<Fruit, u32> {
+        
         let mut basket = HashMap::<Fruit, u32>::new();
         basket.insert(Fruit::Apple, 4);
         basket.insert(Fruit::Mango, 2);
