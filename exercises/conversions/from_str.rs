@@ -26,6 +26,7 @@ enum ParsePersonError {
     ParseInt(ParseIntError),
 }
 
+
 // I AM NOT DONE
 
 // Steps:
@@ -41,6 +42,25 @@ enum ParsePersonError {
 impl FromStr for Person {
     type Err = ParsePersonError;
     fn from_str(s: &str) -> Result<Person, Self::Err> {
+        if s.len() == 0 {
+            return Err(ParsePersonError::Empty);
+        }
+        let mut split_str = s.split(",");
+        let (name, age, others) = (split_str.next(), split_str.next(), split_str.next());
+        match (name.map(|a| a.into()), age.map(|x| x.parse()), others) {
+            (Some(name), Some(Ok(age)), None) => {
+                if name == "" {
+                    Err(ParsePersonError::NoName)
+                } else {
+                    Ok(Person { name, age })
+                }
+            },
+            (Some(_),Some(_),Some(_)) => Err(ParsePersonError::BadLen),
+            (Some(_), Some(Err(e)), None) => Err(ParsePersonError::ParseInt(e)),
+            (Some(_), None, None) => Err(ParsePersonError::BadLen),
+            _ => unimplemented!(),
+        }        
+        
     }
 }
 
