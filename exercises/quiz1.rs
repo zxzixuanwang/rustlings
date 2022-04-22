@@ -11,7 +11,13 @@
 // I AM NOT DONE
 
 // Put your function here!
-// fn calculate_apple_price {
+fn calculate_apple_price(param: i32) -> i32 {
+    match param{
+        0 ..= 40  => 2 * param,
+        41 .. => 1 * param,
+        _ => 0,
+    }
+}
 
 // Don't modify this function!
 #[test]
@@ -19,7 +25,7 @@ fn verify_test() {
     let price1 = calculate_apple_price(35);
     let price2 = calculate_apple_price(40);
     let price3 = calculate_apple_price(65);
-
+    
     assert_eq!(70, price1);
     assert_eq!(80, price2);
     assert_eq!(65, price3);
